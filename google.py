@@ -1,24 +1,17 @@
-import requests
+from googlesearch import search
 
 KEY_file = open('key.txt', 'r')
 KEY=KEY_file.readlines()[0]
 
+def google(query):
+    results = []
+    for i in search(query=query, tld='co.in', lang='en', num=10, stop=10, pause=2):
+        results.append(i)
+    return results
 
-class Gsearch_python:
+def print_google(query):
+    results = google(query)
+    for i in range(len(results)):
+        print(results[i])
 
-    def __init__(self, name_search):
-        self.name = name_search
-
-    def Gsearch(self):
-        count = 0
-        results = []
-
-        try:
-            from googlesearch import search
-        except ImportError:
-             print("No Module named 'google' Found")
-
-        for i in search(query=self.name,tld='co.in',lang='en',num=10,stop=10,pause=2):
-            results.append(i)
-
-        return results
+print_google("New England Patriots")
