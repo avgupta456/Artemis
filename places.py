@@ -1,24 +1,33 @@
 import google
 import maps
 
+def add_places(places, strs, city):
+    city_coords = maps.getCity(city)
+    for place in strs:
+        temp = maps.Place(place, city_coords)
+        if(temp.filled==True): places.append(temp)
+
+def check_duplicates(places):
+    unique = set([])
+    new_places = []
+    for place in places:
+        if(not place.address in unique):
+            unique.add(place.address)
+            new_places.append(place)
+    return new_places
+
+def print_places(places):
+    for place in places:
+        place.print()
+
 city = "Cary"
-strs = google.tripAdvisor(city)
 places = []
 
-for place in strs:
-    city_coords = maps.getCity(city)
-    temp = maps.Place(place, city_coords)
-    if(temp.filled==True): places.append(temp)
+strs = google.tripAdvisor(city)
+add_places(places, strs, city)
 
-print(len(places))
-unique = set([])
-new_places = []
-for place in places:
-    if(not place.address in unique):
-        unique.add(place.address)
-        new_places.append(place)
-places = new_places
-print(len(places))
+#can add more sources here
 
-#for place in places:
-#    place.print()
+check_duplicates(places)
+print_places(places)
+print(len(places))
