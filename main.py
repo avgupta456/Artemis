@@ -1,7 +1,7 @@
 import google
 import maps
 
-city = "New York City"
+city = "Cary"
 strs = google.tripAdvisor(city)
 places = []
 
