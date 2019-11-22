@@ -29,7 +29,7 @@ class Place:
         print("("+str(self.lat)+", "+str(self.lon)+")")
         print(str(self.rating)+" ("+str(self.reviews)+")")
         print(self.types)
+        print()
 
-
-Yale = Place("Yale University")
-Yale.print()
+#Yale = Place("Yale University")
+#Yale.print()

@@ -57,10 +57,13 @@ def GS_elements_site(query, site, object, attrs):
     html = GS_HTML_site(query, site)
     return getElements(html, object, attrs)
 
-city = "New York City"
-query = "TripAdvisor" + city
-site = "https://www.tripadvisor.com/Tourism"
-object = "span"
-attrs = {'class', 'social-shelf-items-ShelfLocationSection__name--CdA_A'}
+def tripAdvisor(city):
+    query = "TripAdvisor" + city
+    site = "https://www.tripadvisor.com/Tourism"
+    object = "span"
+    attrs = {'class', 'social-shelf-items-ShelfLocationSection__name--CdA_A'}
 
-printArr(GS_elements_site(query, site, object, attrs))
+    places = GS_elements_site(query, site, object, attrs)
+    return places
+
+#tripAdvisor("New York City")

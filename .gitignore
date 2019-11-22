@@ -2,3 +2,4 @@
 *.txt
 .google-cookie
 *.npz
+*.pyc
