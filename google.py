@@ -7,14 +7,17 @@ from bs4 import BeautifulSoup
 KEY_file = open('key.txt', 'r')
 KEY=KEY_file.readlines()[0]
 
-def GS(query):
+pause = 0.1
+
+def GS(query, count=10):
     results = []
-    for i in search(query=query, tld='co.in', lang='en', num=10, stop=10, pause=2):
+    for i in search(query=query, tld='co.in', lang='en',
+            num=count, stop=count, pause=pause):
         results.append(i)
     return results
 
-def GS_site(query, site):
-    results = GS(query)
+def GS_site(query, site, count=10):
+    results = GS(query, count)
     out = []
 
     for i in range(len(results)):
@@ -33,11 +36,11 @@ def getHTML(URL):
     return soup
 
 def GS_HTML(query):
-    results = GS(query)
+    results = GS(query, 1)
     return getHTML(results[0])
 
 def GS_HTML_site(query, site):
-    results = GS_site(query, site)
+    results = GS_site(query, site, 5)
     return getHTML(results[0])
 
 def getElements(html, object, attrs):
