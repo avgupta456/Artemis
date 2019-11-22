@@ -9,11 +9,11 @@ gmaps = googlemaps.Client(key=key)
 
 class Place:
     filled = False
-    def __init__(self, location):
-        self.filled = self.update(location)
+    def __init__(self, location, city):
+        self.filled = self.update(location, city)
 
-    def update(self, location):
-        data = gmaps.places(location)
+    def update(self, location, city):
+        data = gmaps.places(location, open_now=True, location=city)
         if(data['status']=='ZERO_RESULTS'): return False
 
         try:
@@ -24,12 +24,13 @@ class Place:
             self.rating = data['results'][0]['rating']
             self.reviews = data['results'][0]['user_ratings_total']
             self.types = data['results'][0]['types']
-            self.rating = self.rating - a*(self.reviews)**b
+
+            if(self.reviews==0): self.rating = 3
+            else: self.rating = self.rating - a*(self.reviews)**b
+
             return True
         except KeyError:
             return False
-
-
 
     def print(self):
         print(self.name)
@@ -38,6 +39,12 @@ class Place:
         print(str(self.rating)+" ("+str(self.reviews)+")")
         print(self.types)
         print()
+
+def getCity(city):
+    data =gmaps.places(city)
+    lat = data['results'][0]['geometry']['location']['lat']
+    lon = data['results'][0]['geometry']['location']['lng']
+    return [lat, lon]
 
 #Yale = Place("Yale University")
 #Yale.print()

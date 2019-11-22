@@ -1,11 +1,13 @@
 import google
 import maps
 
-strs = google.tripAdvisor("New York City")
+city = "New York City"
+strs = google.tripAdvisor(city)
 places = []
 
 for place in strs:
-    temp = maps.Place(place)
+    city_coords = maps.getCity(city)
+    temp = maps.Place(place, city_coords)
     if(temp.filled==True): places.append(temp)
 
 for place in places:
