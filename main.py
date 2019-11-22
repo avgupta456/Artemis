@@ -1,7 +1,12 @@
 import google
 import maps
 
-places = google.tripAdvisor("New York City")
-for place in places:
+strs = google.tripAdvisor("New York City")
+places = []
+
+for place in strs:
     temp = maps.Place(place)
-    temp.print()
+    if(temp.filled==True): places.append(temp)
+
+for place in places:
+    place.print()
