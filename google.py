@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 KEY_file = open('key.txt', 'r')
 KEY=KEY_file.readlines()[0]
 
-pause = 0.1
+pause = 0.0
 
 def GS(query, count=10):
     results = []
