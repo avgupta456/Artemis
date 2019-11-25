@@ -66,4 +66,13 @@ def tripAdvisor(city):
     places = GS_elements_site(query, site, object, attrs)
     return places
 
+def tripAdvisor2(city):
+    query = "TripAdvisor" + city
+    site = "https://www.tripadvisor.com/Attractions"
+    object = "a"
+    attrs = {'class', 'attractions-attraction-overview-pois-PoiInfo__name--SJ0a4'}
+
+    places = GS_elements_site(query, site, object, attrs)
+    return places
+
 #tripAdvisor("New York City")
