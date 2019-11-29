@@ -1,29 +1,34 @@
 import google
 import maps
 
-def add_places(places, strs, city):
-    unique = set([])
-    for place in places:
-        unique.add(place.address)
+def addPlaces(strs, city):
+    names = set([])
+    places = []
 
     city_coords = maps.getCity(city)
-    for place in strs:
-        temp = maps.Place(place, city_coords)
-        if(temp.filled==True):
-            if(not temp.address in unique):
-                places.append(temp)
-                unique.add(temp.address)
 
-def print_places(places):
+    for place in strs:
+        if place != "":
+            temp = maps.Place(place, city_coords)
+            if(temp.filled==True):
+                if(not temp.address in names and temp.isBad()==False):
+                    places.append(temp)
+                    names.add(temp.address)
+                    print(place)
+
+    return places
+
+def printPlaces(places):
     for place in places:
         place.print()
 
-city = "Cary"
-places = []
+def sortPlaces(places):
+    places.sort(key=lambda x: x.rating, reverse=True)
 
+city = "New York City"
 strs = google.tripAdvisor(city)
-add_places(places, strs, city)
-#can add more sources here
+places = addPlaces(strs, city)
 
-print_places(places)
+sortPlaces(places)
+printPlaces(places)
 print(len(places))

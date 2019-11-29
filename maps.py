@@ -25,8 +25,10 @@ class Place:
             self.reviews = data['results'][0]['user_ratings_total']
             self.types = data['results'][0]['types']
 
-            if(self.reviews==0): self.rating = 3
+            if(self.reviews<100): return False
             else: self.rating = self.rating - a*(self.reviews)**b
+            if(self.rating<4.0): return False
+
 
             return True
         except KeyError:
@@ -40,11 +42,22 @@ class Place:
         print(self.types)
         print()
 
+    def isBad(self):
+        bad = ['atm', 'bar', 'beauty_salon', 'bicycle_store', 'bus_station',
+            'car_dealer', 'car_rental', 'car_repair', 'car_wash', 'dentist',
+            'doctor', 'drugstore', 'electrician', 'electronics_store',
+            'funeral_home', 'food', 'gas_station', 'hair_care', 'hardware_store',
+            'insurance_agency', 'laundry', 'liquor_store', 'locksmith',
+            'lodging', 'meal_delivery', 'meal_takeaway', 'movie_rental',
+            'moving_company', 'night_club', 'painter', 'parking', 'pharmacy',
+            'physiotherapist', 'plumber', 'post_office', 'real_estate_agency',
+            'restaurant', 'roofing_contractor', 'rv_park', 'shoe_store',
+            'storage', 'taxi_stand', 'transit_station', 'veterinary_care']
+
+        return len(list(set(bad) & set(self.types)))
+
 def getCity(city):
     data =gmaps.places(city)
     lat = data['results'][0]['geometry']['location']['lat']
     lon = data['results'][0]['geometry']['location']['lng']
     return [lat, lon]
-
-#Yale = Place("Yale University")
-#Yale.print()
