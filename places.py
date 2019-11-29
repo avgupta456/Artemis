@@ -12,9 +12,10 @@ def addPlaces(strs, city):
             temp = maps.Place(place, city_coords)
             if(temp.filled==True):
                 if(not temp.address in names and temp.isBad()==False):
-                    places.append(temp)
-                    names.add(temp.address)
-                    print(place)
+                    if(maps.getDistance(city_coords[0], city_coords[1], temp.lat, temp.lon)<7200):
+                        places.append(temp)
+                        names.add(temp.address)
+                        print(place)
 
     return places
 

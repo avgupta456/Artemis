@@ -61,3 +61,7 @@ def getCity(city):
     lat = data['results'][0]['geometry']['location']['lat']
     lon = data['results'][0]['geometry']['location']['lng']
     return [lat, lon]
+
+def getDistance(lat1, lon1, lat2, lon2):
+    dist = ((lat1-lat2)**2+(lon1-lon2)**2)**0.5
+    return dist*69/3*3600 #conversion form lat/lon to miles to hours to seconds
