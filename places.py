@@ -33,27 +33,21 @@ def sortPlaces_reviews(places):
 def sortPlaces_rating(places):
     places.sort(key=lambda x: x.rating, reverse=True)
 
-city = "London"
-strs = google.tripAdvisor(city)
-places = addPlaces(strs, city)
+def getPlaces(city):
+    strs = google.tripAdvisor(city)
+    places = addPlaces(strs, city)
+    sortPlaces_reviews(places)
 
-sortPlaces_reviews(places)
+    [parks, parks_max] = [0, 3]
 
-parks = 0
-parks_max = 3
+    new_places = []
+    for place in places:
+        if(place.isPark() and parks<parks_max):
+            new_places.append(place)
+            parks+=1
+        elif(not place.isPark()):
+            new_places.append(place)
 
-new_places = []
-for place in places:
-    if(place.isPark() and parks<parks_max):
-        new_places.append(place)
-        parks+=1
-    elif(not place.isPark()):
-        new_places.append(place)
-
-places = new_places
-
-places = places[:min(20,len(places))]
-sortPlaces_rating(places)
-
-printPlaces(places)
-print(len(places))
+    places = new_places[:min(20,len(new_places))]
+    sortPlaces_rating(places)
+    return places

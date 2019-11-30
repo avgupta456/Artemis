@@ -13,7 +13,7 @@ bad = ['atm', 'bar', 'beauty_salon', 'bicycle_store', 'bus_station',
     'funeral_home', 'gas_station', 'hair_care', 'hardware_store',
     'insurance_agency', 'laundry', 'liquor_store', 'locksmith',
     'lodging', 'meal_delivery', 'meal_takeaway', 'movie_rental',
-    'moving_company', 'night_club', 'painter', 'parking', 'pharmacy',
+    'moving_company', 'night_club', 'painter', 'pharmacy',
     'physiotherapist', 'plumber', 'post_office', 'real_estate_agency',
     'roofing_contractor', 'rv_park', 'shoe_store', 'storage',
     'taxi_stand', 'transit_station', 'veterinary_care']
@@ -74,7 +74,3 @@ def getCity(city):
     lat = data['results'][0]['geometry']['location']['lat']
     lon = data['results'][0]['geometry']['location']['lng']
     return [lat, lon]
-
-def getDistance(lat1, lon1, lat2, lon2):
-    dist = ((lat1-lat2)**2+(lon1-lon2)**2)**0.5
-    return dist*69/3*3600 #conversion form lat/lon to miles to hours to seconds
