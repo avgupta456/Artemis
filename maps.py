@@ -7,13 +7,27 @@ gmaps = googlemaps.Client(key=key)
 #rating parameters
 [a, b] = [1, -0.5]
 
+bad = ['atm', 'bar', 'beauty_salon', 'bicycle_store', 'bus_station',
+    'car_dealer', 'car_rental', 'car_repair', 'car_wash', 'dentist',
+    'doctor', 'drugstore', 'electrician', 'electronics_store',
+    'funeral_home', 'gas_station', 'hair_care', 'hardware_store',
+    'insurance_agency', 'laundry', 'liquor_store', 'locksmith',
+    'lodging', 'meal_delivery', 'meal_takeaway', 'movie_rental',
+    'moving_company', 'night_club', 'painter', 'parking', 'pharmacy',
+    'physiotherapist', 'plumber', 'post_office', 'real_estate_agency',
+    'roofing_contractor', 'rv_park', 'shoe_store', 'storage',
+    'taxi_stand', 'transit_station', 'veterinary_care']
+
+park = ['park']
+
 class Place:
     filled = False
     def __init__(self, location, city):
+        self.city_coords = city
         self.filled = self.update(location, city)
 
     def update(self, location, city):
-        data = gmaps.places(location, open_now=True, location=city)
+        data = gmaps.places(location, location=city)
         if(data['status']=='ZERO_RESULTS'): return False
 
         try:
@@ -29,10 +43,9 @@ class Place:
             else: self.rating = self.rating - a*(self.reviews)**b
             if(self.rating<4.0): return False
 
-
             return True
-        except KeyError:
-            return False
+
+        except KeyError: return False
 
     def print(self):
         print(self.name)
@@ -42,19 +55,19 @@ class Place:
         print(self.types)
         print()
 
-    def isBad(self):
-        bad = ['atm', 'bar', 'beauty_salon', 'bicycle_store', 'bus_station',
-            'car_dealer', 'car_rental', 'car_repair', 'car_wash', 'dentist',
-            'doctor', 'drugstore', 'electrician', 'electronics_store',
-            'funeral_home', 'food', 'gas_station', 'hair_care', 'hardware_store',
-            'insurance_agency', 'laundry', 'liquor_store', 'locksmith',
-            'lodging', 'meal_delivery', 'meal_takeaway', 'movie_rental',
-            'moving_company', 'night_club', 'painter', 'parking', 'pharmacy',
-            'physiotherapist', 'plumber', 'post_office', 'real_estate_agency',
-            'restaurant', 'roofing_contractor', 'rv_park', 'shoe_store',
-            'storage', 'taxi_stand', 'transit_station', 'veterinary_care']
+    def quickPrint(self):
+        print(str(self.name) + " - " + str(self.rating) + " (" + str(self.reviews) + ")")
 
-        return len(list(set(bad) & set(self.types)))
+    def isBad(self):
+        #distance check (very loose)
+        if(getDistance(self.city_coords[0], self.city_coords[1], self.lat, self.lon)>72000): return True
+
+        #type check
+        #if len(list(set(bad) & set(self.types)))>0: print("Type Error")
+        return len(list(set(bad) & set(self.types)))>0
+
+    def isPark(self):
+        return len(list(set(park) & set(self.types)))>0
 
 def getCity(city):
     data =gmaps.places(city)

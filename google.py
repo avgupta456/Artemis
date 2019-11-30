@@ -119,7 +119,9 @@ def tripAdvisorCategory(city, category):
     places = GS_elements_site_all(query, site, object, attrs)
 
     new_places = []
-    for place in places: new_places.append(place.split("\n")[1])
+    for place in places:
+        try: new_places.append(place.split("\n")[1])
+        except IndexError: pass
 
     return new_places
 
