@@ -26,7 +26,7 @@ def printMatrix(matrix):
 
 
 city = "Raleigh"
-places = p.getPlaces(city)
+places = p.getPlacesQuick(city)
 p.printPlaces(places)
 print(len(places))
 

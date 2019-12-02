@@ -144,3 +144,15 @@ def tripAdvisor(city):
         print(len(places))
 
     return list(unique)
+
+def tripAdvisorQuick(city):
+    unique = set([])
+    places = tripAdvisorTourism(city)
+    for place in places: unique.add(place)
+    print(len(places))
+
+    places = tripAdvisorAttractions(city)
+    for place in places: unique.add(place)
+    print(len(places))
+
+    return list(unique)

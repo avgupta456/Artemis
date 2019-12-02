@@ -51,3 +51,22 @@ def getPlaces(city):
     places = new_places[:min(20,len(new_places))]
     sortPlaces_rating(places)
     return places
+
+def getPlacesQuick(city):
+    strs = google.tripAdvisorQuick(city)
+    places = addPlaces(strs, city)
+    sortPlaces_reviews(places)
+
+    [parks, parks_max] = [0, 3]
+
+    new_places = []
+    for place in places:
+        if(place.isPark() and parks<parks_max):
+            new_places.append(place)
+            parks+=1
+        elif(not place.isPark()):
+            new_places.append(place)
+
+    places = new_places[:min(20,len(new_places))]
+    sortPlaces_rating(places)
+    return places
