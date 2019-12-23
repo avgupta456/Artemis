@@ -45,14 +45,22 @@ def getPlacesQuick(city):
 
 def __getPlaces__(places):
     [parks, parks_max] = [0, 3]
+    [rests, rests_max] = [0, 3]
 
     new_places = []
     for place in places:
         if(place.isPark() and parks<parks_max):
             new_places.append(place)
+            #print("Added a Park")
             parks+=1
 
-        elif(not place.isPark()):
+        elif(place.isRestaurant() and rests<rests_max):
+            new_places.append(place)
+            #print("Added a Restaurant")
+            rests+=1
+
+        elif(not place.isPark() and not place.isRestaurant()):
+            #print("Added an Unknown")
             new_places.append(place)
 
     places = new_places[:min(20,len(new_places))]

@@ -16,10 +16,13 @@ bad = ['atm', 'bar', 'beauty_salon', 'bicycle_store', 'bus_station',
     'lodging', 'meal_delivery', 'meal_takeaway', 'movie_rental',
     'moving_company', 'night_club', 'painter', 'pharmacy',
     'physiotherapist', 'plumber', 'post_office', 'real_estate_agency',
-    'roofing_contractor', 'rv_park', 'shoe_store', 'storage',
+    'restaurant', 'roofing_contractor', 'rv_park', 'shoe_store', 'storage',
     'taxi_stand', 'transit_station', 'veterinary_care']
 
 park = ['park']
+
+restaurant = ['restaurant']
+#restaurant = ['restaurant', 'meal_delivery', 'meal_takeaway']
 
 class Place:
     filled = False
@@ -42,6 +45,7 @@ class Place:
 
             if(self.reviews<100): return False
             else: self.rating = self.rating - a*(self.reviews)**b
+
             if(self.rating<4.0): return False
 
             return True
@@ -63,12 +67,15 @@ class Place:
         #distance check (very loose)
         if(d.getDistance(self.city_coords[0], self.city_coords[1], self.lat, self.lon)>72000): return True
 
-        #type check
-        #if len(list(set(bad) & set(self.types)))>0: print("Type Error")
         return len(list(set(bad) & set(self.types)))>0
 
     def isPark(self):
         return len(list(set(park) & set(self.types)))>0
+
+    def isRestaurant(self):
+        #self.print()
+        #print(len(list(set(restaurant) & set(self.types)))>0 and len(self.types)<=3)
+        return len(list(set(restaurant) & set(self.types)))>0 and len(self.types)<=3
 
 def getCity(city):
     data =gmaps.places(city)
