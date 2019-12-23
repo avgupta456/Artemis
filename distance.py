@@ -17,7 +17,7 @@ def adjMatrixApprox(places):
         for j in range(0,n):
             if(i==j): matrix[i][j] = 0
             elif(i>j): matrix[i][j] = matrix[j][i]
-            else: matrix[i][j] = getDistance(places[i].lat, places[i].lon, places[j].lat, places[j].lon)
+            else: matrix[i][j] = int(getDistance(places[i].lat, places[i].lon, places[j].lat, places[j].lon))
 
     return matrix
 
