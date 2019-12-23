@@ -1,10 +1,12 @@
 import places as p
 import distance as d
 
-city = "Raleigh"
-list = p.getPlacesQuick(city)
-p.quickPrintPlaces(list)
-print(len(list))
+city = "New York City"
+places = p.getPlacesQuick(city)
+p.quickPrintPlaces(places)
+print(len(places))
 
-matrix = d.adjMatrix(list)
-d.printMatrix(matrix)
+matrix_approx = d.adjMatrixApprox(places)
+matrix_real = d.adjMatrixReal(places)
+d.printMatrix(matrix_approx)
+d.printMatrix(matrix_real)
