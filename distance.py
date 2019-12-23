@@ -1,5 +1,4 @@
-import places as p
-
+import numpy as np
 
 def getDistance(lat1, lon1, lat2, lon2):
     dist = ((lat1-lat2)**2+(lon1-lon2)**2)**0.5
@@ -7,13 +6,14 @@ def getDistance(lat1, lon1, lat2, lon2):
 
 def adjMatrix(places):
     n = len(places)
-    matrix = np.array(size=(n, n), dtype='double')
+    matrix = np.zeros(shape=(n, n), dtype='double')
+
     for i in range(0,n):
         for j in range(0,n):
             if(i==j): matrix[i][j] = 0
             elif(i>j): matrix[i][j] = matrix[j][i]
-            else: matrix[i][j] = getDistance(places[i].lat, places[i].lon,
-                places[j].lat, places[j].lon)
+            else: matrix[i][j] = getDistance(places[i].lat, places[i].lon, places[j].lat, places[j].lon)
+
     return matrix
 
 def printMatrix(matrix):
@@ -23,12 +23,3 @@ def printMatrix(matrix):
             print(matrix[i][j], end=" ")
         print()
     print()
-
-
-city = "Raleigh"
-places = p.getPlacesQuick(city)
-p.printPlaces(places)
-print(len(places))
-
-matrix = adjMatrix(places)
-printMatrix(matrix)

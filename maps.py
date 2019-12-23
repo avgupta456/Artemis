@@ -1,6 +1,7 @@
 import googlemaps
+import distance as d
 
-f = open("key.txt", "r")
+f = open("key2.txt", "r")
 key = f.readlines()[0]
 gmaps = googlemaps.Client(key=key)
 
@@ -60,7 +61,7 @@ class Place:
 
     def isBad(self):
         #distance check (very loose)
-        if(getDistance(self.city_coords[0], self.city_coords[1], self.lat, self.lon)>72000): return True
+        if(d.getDistance(self.city_coords[0], self.city_coords[1], self.lat, self.lon)>72000): return True
 
         #type check
         #if len(list(set(bad) & set(self.types)))>0: print("Type Error")

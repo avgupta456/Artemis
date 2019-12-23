@@ -4,7 +4,7 @@ import re
 import requests
 from bs4 import BeautifulSoup
 
-KEY_file = open('key.txt', 'r')
+KEY_file = open('key2.txt', 'r')
 KEY=KEY_file.readlines()[0]
 
 pause = 0.0
