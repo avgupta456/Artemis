@@ -5,7 +5,7 @@ import tsp
 city = "New York City"
 time_limit = 3600
 
-places = p.getPlacesQuick(city)
+places = p.getPlacesQuick(city, False)
 p.quickPrintPlaces(places)
 print(len(places))
 
@@ -14,6 +14,6 @@ matrix_real = d.adjMatrixReal(places[0:min(10, len(places))])
 d.printMatrix(matrix_approx)
 d.printMatrix(matrix_real)
 
-order = tsp.find_route(matrix_approx, places, time_limit, tsp.metric_func)
+order = tsp.find_route(matrix_approx, places, time_limit, tsp.metric_func, False)
 for place in order:
     place.print()

@@ -76,7 +76,6 @@ class Place:
         print(str(self.name) + " - " + str(self.rating) + " (" + str(self.reviews) + ")")
 
     def isBad(self):
-        #distance check (very loose)
         if(d.getDistance(self.city_coords[0], self.city_coords[1], self.lat, self.lon)>72000): return True
 
         return len(list(set(bad) & set(self.types)))>0
