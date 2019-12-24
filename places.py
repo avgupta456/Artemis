@@ -1,4 +1,6 @@
 import google
+
+import distance as d
 import maps
 
 def addPlaces(strs, city):
@@ -31,42 +33,53 @@ def sortPlaces_reviews(places):
 def sortPlaces_rating(places):
     places.sort(key=lambda x: x.rating, reverse=True)
 
-def getPlaces(city):
+def getPlaces(city, start=True):
     strs = google.tripAdvisor(city)
     places = addPlaces(strs, city)
     sortPlaces_reviews(places)
-    return __getPlaces__(places, city)
+    return __cleanPlaces__(places, city, start)
 
-def getPlacesQuick(city):
+def getPlacesQuick(city, start=True):
     strs = google.tripAdvisorQuick(city)
     places = addPlaces(strs, city)
     sortPlaces_reviews(places)
-    return __getPlaces__(places, city)
+    return __cleanPlaces__(places, city, start)
 
-def __getPlaces__(places, city):
+def __cleanPlaces__(places, city, start):
     [parks, parks_max] = [0, 3]
     [rests, rests_max] = [0, 3]
 
+    locs = []
     new_places = []
 
     for place in places:
-        if(place.isPark() and parks<parks_max):
-            new_places.append(place)
-            #print("Added a Park")
-            parks+=1
+        print(locs)
+        cont = True
+        for loc in locs:
+            #print(d.getDistance(loc[0], loc[1], place.lat, place.lon))
+            if(d.getDistance(loc[0], loc[1], place.lat, place.lon)<120):
+                cont = False
+                break
 
-        elif(place.isRestaurant() and rests<rests_max):
-            new_places.append(place)
-            #print("Added a Restaurant")
-            rests+=1
+        if(cont):
+            if(place.isPark() and parks<parks_max):
+                new_places.append(place)
+                locs.append([place.lat, place.lon])
+                parks+=1
 
-        elif(not place.isPark() and not place.isRestaurant()):
-            #print("Added an Unknown")
-            new_places.append(place)
+            elif(place.isRestaurant() and rests<rests_max):
+                new_places.append(place)
+                locs.append([place.lat, place.lon])
+                rests+=1
+
+            elif(not place.isPark() and not place.isRestaurant()):
+                new_places.append(place)
+                locs.append([place.lat, place.lon])
 
     places = new_places[:min(20,len(new_places))]
     sortPlaces_rating(places)
 
+    if(not start): return places
     new_places = [maps.Place(True, maps.get_sp(city),0)]
     for place in places: new_places.append(place)
     return new_places
