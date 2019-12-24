@@ -29,16 +29,18 @@ class Place:
 
     def __init__(self, start, location, city):
         if(start):
-            self.name = "Start"
             self.lat = location[0]
             self.lon = location[1]
-            self.reviews = 0
+            self.address = "Start Address"
+            self.name = "Start"
             self.rating = 5
-            print("I'M HERE")
+            self.reviews = 0
+            self.types = []
             self.filled = False
 
-        self.city_coords = city
-        self.filled = self.update(location, city)
+        else:
+            self.city_coords = city
+            self.filled = self.update(location, city)
 
     def update(self, location, city):
         data = gmaps.places(location, location=city)
