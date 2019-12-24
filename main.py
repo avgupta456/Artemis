@@ -3,7 +3,7 @@ import distance as d
 import tsp
 
 city = "New York City"
-time_limit = 7200
+time_limit = 3600
 
 places = p.getPlacesQuick(city)
 p.quickPrintPlaces(places)

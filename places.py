@@ -11,7 +11,7 @@ def addPlaces(strs, city):
         if place != "":
             temp = maps.Place(False, place, city_coords)
             if(temp.filled==True):
-                if(not temp.address in names and temp.isBad()==False):
+                if(len(set([temp.address])&names)==0 and temp.isBad()==False):
                     places.append(temp)
                     names.add(temp.address)
 
@@ -67,5 +67,6 @@ def __getPlaces__(places, city):
     places = new_places[:min(20,len(new_places))]
     sortPlaces_rating(places)
 
-    places.append(maps.Place(True, maps.get_sp(city), 0))
-    return places
+    new_places = [maps.Place(True, maps.get_sp(city),0)]
+    for place in places: new_places.append(place)
+    return new_places

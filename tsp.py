@@ -28,8 +28,8 @@ def find_route(matrix, locations, time_limit, f):
 
     n = len(locations)
     for i in range(1, 2**(n-1)):
-        if(i%1000==0): print(i)
-        bin = binary(i, n-1)+"1"
+        if(i%10000==0): print(i)
+        bin = "1"+binary(i, n-1)
 
         cont = True
         for j in range(len(bads)):
@@ -44,7 +44,7 @@ def find_route(matrix, locations, time_limit, f):
                     iArr.append(j)
                     posArr.append(locations[j])
 
-            time, order = optimize(posArr, getMat(iArr, matrix))
+            time, order = optimize2(posArr, getMat(iArr, matrix))
 
             if(time<time_limit):
                 value = f(order)
@@ -57,12 +57,34 @@ def find_route(matrix, locations, time_limit, f):
 
     return best_order
 
-#the last element passed in posArr is the starting location
+#the first element passed in posArr is the starting location
 def optimize(posArr, matrix):
     n, time, order = len(posArr), 0, [posArr[-1]]
     for i in range(n-1):
         time += matrix[i][i+1]
         order.append(posArr[i])
+    return time, order
+
+def optimize2(posArr, matrix):
+    n, time, order, dist = len(posArr), 0, [0], 0
+    for i in range(0, n-1):
+        min_dist, loc = 1e10, -1
+        for j in range(n):
+            if(len(set([j])&set(order))==0):
+                dist = matrix[order[-1]][j]
+                if(dist<min_dist): min_dist, loc = dist, j
+        order.append(loc)
+        time+= min_dist
+
+    #print(order)
+
+    time += matrix[order[0]][order[-1]]
+
+    new_order = []
+    for i in range(len(order)):
+        new_order.append(posArr[order[i]])
+
+    order = new_order
     return time, order
 
 #the first element passed in posArr is the starting location
