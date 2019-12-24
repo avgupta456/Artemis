@@ -55,10 +55,6 @@ def find_route(matrix, locations, time_limit, f, start=True):
                 value = f(posArr, start)
                 if(value>best_value):
                     best_value, best_order = value, posArr
-                    print("New Best")
-                    print(value)
-                    print(posArr)
-                    print()
             else: bads.append(bin)
 
     return best_order

@@ -77,15 +77,12 @@ class Place:
 
     def isBad(self):
         if(d.getDistance(self.city_coords[0], self.city_coords[1], self.lat, self.lon)>72000): return True
-
         return len(list(set(bad) & set(self.types)))>0
 
     def isPark(self):
         return len(list(set(park) & set(self.types)))>0
 
     def isRestaurant(self):
-        #self.print()
-        #print(len(list(set(restaurant) & set(self.types)))>0 and len(self.types)<=3)
         return len(list(set(restaurant) & set(self.types)))>0 and len(self.types)<=3
 
 def getCity(city):

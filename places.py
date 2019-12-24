@@ -53,10 +53,9 @@ def __cleanPlaces__(places, city, start):
     new_places = []
 
     for place in places:
-        print(locs)
+        
         cont = True
         for loc in locs:
-            #print(d.getDistance(loc[0], loc[1], place.lat, place.lon))
             if(d.getDistance(loc[0], loc[1], place.lat, place.lon)<120):
                 cont = False
                 break
