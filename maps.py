@@ -2,8 +2,8 @@ import googlemaps
 import distance as d
 
 f = open("key2.txt", "r")
-key = f.readlines()[0]
-gmaps = googlemaps.Client(key=key)
+KEY = f.readlines()[0]
+gmaps = googlemaps.Client(key=KEY)
 
 #rating parameters
 [a, b] = [1, -0.5]
@@ -26,7 +26,17 @@ restaurant = ['restaurant']
 
 class Place:
     filled = False
-    def __init__(self, location, city):
+
+    def __init__(self, start, location, city):
+        if(start):
+            self.name = "Start"
+            self.lat = location[0]
+            self.lon = location[1]
+            self.reviews = 0
+            self.rating = 5
+            print("I'M HERE")
+            self.filled = False
+
         self.city_coords = city
         self.filled = self.update(location, city)
 
@@ -82,3 +92,15 @@ def getCity(city):
     lat = data['results'][0]['geometry']['location']['lat']
     lon = data['results'][0]['geometry']['location']['lng']
     return [lat, lon]
+
+
+def get_sp(place):
+    if place == 'current':
+        g = geocoder.ip('me')
+        return [g.latlng[0], g.latlng[1]]
+    else:
+        gmaps = googlemaps.Client(key=KEY)
+        geocode_result = gmaps.geocode(place)
+        lat = geocode_result[0]['geometry']['location']['lat']
+        lon = geocode_result[0]['geometry']['location']['lng']
+        return [lat, lon]
