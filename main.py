@@ -1,24 +1,23 @@
 import places as p
 import distance as d
+
 import tsp
+import maps
 
 city = "New York City"
 time_limit = 7200
-start_loc = False
 
-places = p.getPlacesQuick(city, start_loc)
+places = p.getPlacesQuick(city)
 p.quickPrintPlaces(places)
 print(len(places))
 
 matrix_approx = d.adjMatrixApprox(places)
 d.printMatrix(matrix_approx)
 
-order = tsp.find_route(matrix_approx, places, time_limit, tsp.metric_func, start_loc)
+order = tsp.find_route(matrix_approx, places, time_limit, tsp.metric_func)
+for place in order: place.print()
 
 matrix_real = d.adjMatrixReal(order)
 d.printMatrix(matrix_real)
 
-real_order = tsp.solve(matrix_real, order)
-
-for place in real_order:
-    place.print()
+#maps.solve(order)

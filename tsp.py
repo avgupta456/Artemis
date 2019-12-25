@@ -20,7 +20,7 @@ def contains(a, b):
     return True
 
 
-def find_route(matrix, locations, time_limit, f, start=True):
+def find_route(matrix, locations, time_limit, f):
     bads = []
 
     best_value = -1
@@ -30,8 +30,7 @@ def find_route(matrix, locations, time_limit, f, start=True):
     for i in range(1, 2**(n-1)):
         if(i%10000==0): print(i)
 
-        if(start): bin = "1"+binary(i, n-1)
-        else: bin = binary(i, n)
+        bin = binary(i, n)
 
         cont = True
         for j in range(len(bads)):
@@ -41,25 +40,17 @@ def find_route(matrix, locations, time_limit, f, start=True):
 
         if(cont):
             iArr, posArr = [], []
+
             for j in range(n):
-                if(bin[j]=='1'):
-                    iArr.append(j)
+                if(bin[j]=='1'): iArr.append(j)
 
             time, order = optimize2(getMat(iArr, matrix))
-
-            for i in range(len(iArr)):
-                posArr.append(locations[iArr[order[i]]])
-
-
-            if(time<time_limit):
-                value = f(posArr, start)
-                if(value>best_value):
-                    best_value, best_order = value, posArr
-            else: bads.append(bin)
+            for i in range(len(iArr)): posArr.append(locations[iArr[order[i]]])
+            if(time<=time_limit and f(posArr)>best_value): best_value, best_order = f(posArr), posArr
+            elif(time>time_limit): bads.append(bin)
 
     return best_order
 
-#the first element passed in posArr is the starting location
 def optimize(matrix):
     n, time, order = len(matrix[0]), 0, [0]
     for i in range(n-1):
@@ -83,9 +74,7 @@ def optimize2(matrix):
     time += matrix[order[0]][order[-1]]
     return time, order
 
-#the first element passed in posArr is the starting location
 def metric_func(posArr, start=True):
     n, sum = len(posArr), 0
-    if(not start): sum += posArr[0].rating
-    for i in range(1, n): sum += posArr[i].rating
+    for i in range(0, n): sum += posArr[i].rating
     return sum/n**(0.5)

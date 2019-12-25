@@ -11,17 +11,6 @@ def getCity(city):
     lon = data['results'][0]['geometry']['location']['lng']
     return [lat, lon]
 
-def get_sp(place):
-    if place == 'current':
-        g = geocoder.ip('me')
-        return [g.latlng[0], g.latlng[1]]
-    else:
-        gmaps = googlemaps.Client(key=KEY)
-        geocode_result = gmaps.geocode(place)
-        lat = geocode_result[0]['geometry']['location']['lat']
-        lon = geocode_result[0]['geometry']['location']['lng']
-        return [lat, lon]
-
 #rating parameters
 [a, b] = [2e-3, 0.5]
 

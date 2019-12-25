@@ -20,19 +20,8 @@ class Place:
     filled = False
 
     def __init__(self, start, location, city):
-        if(start):
-            self.lat = location[0]
-            self.lon = location[1]
-            self.address = "Start Address"
-            self.name = "Start"
-            self.rating = 5
-            self.reviews = 0
-            self.types = []
-            self.filled = False
-
-        else:
-            self.city_coords = city
-            self.filled = self.update(location, city)
+        self.city_coords = city
+        self.filled = self.update(location, city)
 
     def update(self, location, city):
         data = maps.getData(location, city)
@@ -60,7 +49,7 @@ class Place:
         return len(list(set(park) & set(self.types)))>0
 
     def isRestaurant(self):
-        return len(list(set(restaurant) & set(self.types)))>0 and len(self.types)<=3
+        return len(list(set(restaurant) & set(self.types)))>0
 
 def addPlaces(strs, city):
     names = set([])
@@ -140,8 +129,4 @@ def __cleanPlaces__(places, city, start):
     print(str(len(new_places)) + " acceptable places found")
     places = new_places[:min(20,len(new_places))]
     sortPlaces_rating(places)
-
-    if(not start): return places
-    new_places = [maps.Place(True, maps.get_sp(city),0)]
-    for place in places: new_places.append(place)
-    return new_places
+    return places
