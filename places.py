@@ -53,7 +53,7 @@ def __cleanPlaces__(places, city, start):
     new_places = []
 
     for place in places:
-        
+
         cont = True
         for loc in locs:
             if(d.getDistance(loc[0], loc[1], place.lat, place.lon)<120):
@@ -75,6 +75,10 @@ def __cleanPlaces__(places, city, start):
                 new_places.append(place)
                 locs.append([place.lat, place.lon])
 
+            else:
+                print("Park or Restaurant")
+
+    print(str(len(new_places)) + " acceptable places found")
     places = new_places[:min(20,len(new_places))]
     sortPlaces_rating(places)
 

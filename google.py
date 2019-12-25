@@ -120,7 +120,11 @@ def tripAdvisorCategory(city, category):
 
     new_places = []
     for place in places:
-        try: new_places.append(place.split("\n")[1])
+        print(place)
+        try:
+            i = 0
+            while(place.split("\n")[i]==""): i+=1
+            new_places.append(place.split("\n")[i])
         except IndexError: pass
 
     return new_places
@@ -129,10 +133,12 @@ def tripAdvisor(city):
     unique = set([])
     places = tripAdvisorTourism(city)
     for place in places: unique.add(place)
+    print(places)
     print(len(places))
 
     places = tripAdvisorAttractions(city)
     for place in places: unique.add(place)
+    print(places)
     print(len(places))
 
     categories = ["Sights and Landmarks", "Museums", "Architectural Buildings",
@@ -141,8 +147,10 @@ def tripAdvisor(city):
     for category in categories:
         places = tripAdvisorCategory(city, category)
         for place in places: unique.add(place)
+        print(places)
         print(len(places))
 
+    print(len(list(unique)))
     return list(unique)
 
 def tripAdvisorQuick(city):
@@ -155,4 +163,5 @@ def tripAdvisorQuick(city):
     for place in places: unique.add(place)
     print(len(places))
 
+    print(len(list(unique)))
     return list(unique)

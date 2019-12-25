@@ -6,23 +6,20 @@ KEY = f.readlines()[0]
 gmaps = googlemaps.Client(key=KEY)
 
 #rating parameters
-[a, b] = [1, -0.5]
+[a, b] = [2e-3, 0.5]
 
 bad = ['atm', 'bar', 'beauty_salon', 'bicycle_store', 'bus_station',
     'car_dealer', 'car_rental', 'car_repair', 'car_wash', 'dentist',
-    'doctor', 'drugstore', 'electrician', 'electronics_store',
-    'funeral_home', 'gas_station', 'hair_care', 'hardware_store',
-    'insurance_agency', 'laundry', 'liquor_store', 'locksmith',
-    'lodging', 'meal_delivery', 'meal_takeaway', 'movie_rental',
-    'moving_company', 'night_club', 'painter', 'pharmacy',
-    'physiotherapist', 'plumber', 'post_office', 'real_estate_agency',
-    'restaurant', 'roofing_contractor', 'rv_park', 'shoe_store', 'storage',
-    'taxi_stand', 'transit_station', 'veterinary_care']
+    'doctor', 'drugstore', 'electrician', 'funeral_home', 'gas_station',
+    'hair_care', 'insurance_agency', 'laundry', 'liquor_store', 'locksmith',
+    'lodging', 'movie_rental', 'moving_company', 'night_club', 'painter',
+    'pharmacy', 'physiotherapist', 'plumber', 'post_office',
+    'real_estate_agency', 'roofing_contractor', 'rv_park', 'storage',
+    'taxi_stand', 'veterinary_care']
 
 park = ['park']
 
-restaurant = ['restaurant']
-#restaurant = ['restaurant', 'meal_delivery', 'meal_takeaway']
+restaurant = ['meal_delivery', 'meal_takeaway', 'restaurant']
 
 class Place:
     filled = False
@@ -54,11 +51,7 @@ class Place:
             self.rating = data['results'][0]['rating']
             self.reviews = data['results'][0]['user_ratings_total']
             self.types = data['results'][0]['types']
-
-            if(self.reviews<100): return False
-            else: self.rating = self.rating - a*(self.reviews)**b
-
-            if(self.rating<4.0): return False
+            self.rating = self.rating + a*(self.reviews)**b
 
             return True
 
@@ -77,6 +70,7 @@ class Place:
 
     def isBad(self):
         if(d.getDistance(self.city_coords[0], self.city_coords[1], self.lat, self.lon)>72000): return True
+        if(self.rating<3 or self.reviews<25): return True
         return len(list(set(bad) & set(self.types)))>0
 
     def isPark(self):
