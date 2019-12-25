@@ -3,6 +3,65 @@ import google
 import distance as d
 import maps
 
+bad = ['atm', 'bar', 'beauty_salon', 'bicycle_store', 'bus_station',
+    'car_dealer', 'car_rental', 'car_repair', 'car_wash', 'dentist',
+    'doctor', 'drugstore', 'electrician', 'funeral_home', 'gas_station',
+    'hair_care', 'insurance_agency', 'laundry', 'liquor_store', 'locksmith',
+    'lodging', 'movie_rental', 'moving_company', 'night_club', 'painter',
+    'pharmacy', 'physiotherapist', 'plumber', 'post_office',
+    'real_estate_agency', 'roofing_contractor', 'rv_park', 'storage',
+    'taxi_stand', 'veterinary_care']
+
+park = ['park']
+
+restaurant = ['meal_delivery', 'meal_takeaway', 'restaurant']
+
+class Place:
+    filled = False
+
+    def __init__(self, start, location, city):
+        if(start):
+            self.lat = location[0]
+            self.lon = location[1]
+            self.address = "Start Address"
+            self.name = "Start"
+            self.rating = 5
+            self.reviews = 0
+            self.types = []
+            self.filled = False
+
+        else:
+            self.city_coords = city
+            self.filled = self.update(location, city)
+
+    def update(self, location, city):
+        data = maps.getData(location, city)
+        if(data==False): return False
+        self.lat, self.lon, self.address, self.name, self.rating, self.reviews, self.types = data
+        return True
+
+    def print(self):
+        print(self.name)
+        print(self.address)
+        print("("+str(self.lat)+", "+str(self.lon)+")")
+        print(str(self.rating)+" ("+str(self.reviews)+")")
+        print(self.types)
+        print()
+
+    def quickPrint(self):
+        print(str(self.name) + " - " + str(self.rating) + " (" + str(self.reviews) + ")")
+
+    def isBad(self):
+        if(d.getDistance(self.city_coords[0], self.city_coords[1], self.lat, self.lon)>72000): return True
+        if(self.rating<3 or self.reviews<25): return True
+        return len(list(set(bad) & set(self.types)))>0
+
+    def isPark(self):
+        return len(list(set(park) & set(self.types)))>0
+
+    def isRestaurant(self):
+        return len(list(set(restaurant) & set(self.types)))>0 and len(self.types)<=3
+
 def addPlaces(strs, city):
     names = set([])
     places = []
@@ -11,7 +70,7 @@ def addPlaces(strs, city):
 
     for place in strs:
         if place != "":
-            temp = maps.Place(False, place, city_coords)
+            temp = Place(False, place, city_coords)
             if(temp.filled==True):
                 if(len(set([temp.address])&names)==0 and temp.isBad()==False):
                     places.append(temp)
