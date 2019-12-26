@@ -1,7 +1,7 @@
 import googlemaps
 import distance as d
 
-f = open("key2.txt", "r")
+f = open("key.txt", "r")
 KEY = f.readlines()[0]
 gmaps = googlemaps.Client(key=KEY)
 

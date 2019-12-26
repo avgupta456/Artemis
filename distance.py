@@ -3,7 +3,7 @@ import googlemaps
 import datetime
 import tsp
 
-KEY_file = open('key2.txt', 'r')
+KEY_file = open('key.txt', 'r')
 KEY=KEY_file.readlines()[0]
 
 def getDistance(lat1, lon1, lat2, lon2):

@@ -7,9 +7,9 @@ import maps
 city = "New York City"
 time_limit = 3600
 
-places = p.getPlacesQuick(city)
+places = p.getPlaces(city)
 p.quickPrintPlaces(places)
-print(len(places))
+#print(len(places))
 
 matrix_approx = d.adjMatrixApprox(places)
 #d.printMatrix(matrix_approx)

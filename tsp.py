@@ -27,7 +27,7 @@ def find_route(matrix, locations, time_limit, f):
 
     n = len(locations)
     for i in range(1, 2**n):
-        if(i%10000==0): print(i)
+        if(i%100000==0): print(i)
 
         bin = binary(i, n)
 
@@ -59,13 +59,13 @@ def optimize(matrix):
     return time, order
 
 def optimize2(matrix):
-    max_dist, loc = 0, -1
+    n, max_dist, loc = len(matrix[0]), 0, -1
     for i in range(0, n-1):
         for j in range(i+1, n):
             if(matrix[i][j]>max_dist):
                 max_dist, loc = matrix[i][j], i
 
-    n, time, order, dist = len(matrix[loc]), 0, [loc], 0
+    time, order, dist = 0, [loc], 0
     for i in range(0, n-1):
         min_dist, loc = 1e10, -1
         for j in range(n):

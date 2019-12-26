@@ -1,7 +1,7 @@
 import gmaps
 
 #configure api
-f = open("key2.txt", "r")
+f = open("key.txt", "r")
 KEY = f.readlines()[0]
 gmaps.configure(api_key=KEY)
 
