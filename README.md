@@ -8,7 +8,9 @@
 
 Run using the Jupyter Notebook Standalone file. It might take a few minutes to complete for a larger city.
 
-Sample Output for Boston:
+# Sample Output
+
+Sample Output for New York City (1 Hour Time Limit):
 ![Sample Output](https://github.com/avgupta456/Artemis/blob/master/images/NewYorkCity.PNG)
 
 Empire State Building -> Bryant Park -> Times Square -> Radio City Music Hall -> Rockefeller Center -> St. Patrick's Cathedral -> The Museum of Modern Art
