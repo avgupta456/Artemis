@@ -120,7 +120,6 @@ def tripAdvisorCategory(city, category):
 
     new_places = []
     for place in places:
-        print(place)
         try:
             i = 0
             while(place.split("\n")[i]==""): i+=1

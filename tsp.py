@@ -1,5 +1,4 @@
 import numpy as np
-import mlrose
 
 def getMat(iArr, matrix):
     n = len(iArr)
