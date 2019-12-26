@@ -9,16 +9,6 @@
 Run using the Jupyter Notebook Standalone file. It might take a few minutes to complete for a larger city.
 
 Sample Output for Boston:
-![Sample Output](https://github.com/avgupta456/Artemis/blob/master/images/Boston.PNG)
+![Sample Output](https://github.com/avgupta456/Artemis/blob/master/images/NewYorkCity.PNG)
 
-A - Bunker Hill Monument
-
-B - USS Constitution Museum
-
-C - Mike's Pastry
-
-D - Union Oyster House
-
-E - Faneuil Hall Marketplace
-
-F - TD Garden
+Empire State Building -> Bryant Park -> Times Square -> Radio City Music Hall -> Rockefeller Center -> St. Patrick's Cathedral -> The Museum of Modern Art
