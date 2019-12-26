@@ -5,3 +5,20 @@
  Dependencies:
  * Python 3.7.4, numpy, bs4, googlemaps, googlesearch, jupyter
  * Google Maps API Key Required (Active Places, Directions, Maps, Geocoding, and Matrix APIs)
+
+Run using the Jupyter Notebook Standalone file. It might take a few minutes to complete for a larger city.
+
+Sample Output for Boston:
+![Sample Output](https://github.com/avgupta456/Artemis/blob/master/images/Boston.PNG)
+
+A - Bunker Hill Monument
+
+B - USS Constitution Museum
+
+C - Mike's Pastry
+
+D - Union Oyster House
+
+E - Faneuil Hall Marketplace
+
+F - TD Garden
