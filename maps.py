@@ -11,9 +11,6 @@ def getCity(city):
     lon = data['results'][0]['geometry']['location']['lng']
     return [lat, lon]
 
-#rating parameters
-[a, b] = [2e-3, 0.5]
-
 def getData(location, city):
     data = gmaps.places(location, location=city)
     if(data['status']=='ZERO_RESULTS'): return False
@@ -27,7 +24,6 @@ def getData(location, city):
         reviews = data['results'][0]['user_ratings_total']
         types = data['results'][0]['types']
 
-        rating = rating + a*(reviews)**b
         return [lat, lon, address, name, rating, reviews, types]
 
     except KeyError: return False

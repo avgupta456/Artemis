@@ -132,11 +132,11 @@ def tripAdvisor(city):
     unique = set([])
     places = tripAdvisorTourism(city)
     for place in places: unique.add(place)
-    print(len(places))
+    #print(len(places))
 
     places = tripAdvisorAttractions(city)
     for place in places: unique.add(place)
-    print(len(places))
+    #print(len(places))
 
     categories = ["Sights and Landmarks", "Museums", "Architectural Buildings",
         "Historic Sites", "Monuments and Statues", "Parks"]
@@ -144,20 +144,20 @@ def tripAdvisor(city):
     for category in categories:
         places = tripAdvisorCategory(city, category)
         for place in places: unique.add(place)
-        print(len(places))
+        #print(len(places))
 
-    print(len(list(unique)))
+    print("Location Candidates: " + str(len(list(unique))))
     return list(unique)
 
 def tripAdvisorQuick(city):
     unique = set([])
     places = tripAdvisorTourism(city)
     for place in places: unique.add(place)
-    print(len(places))
+    #print(len(places))
 
     places = tripAdvisorAttractions(city)
     for place in places: unique.add(place)
-    print(len(places))
+    #print(len(places))
 
-    print(len(list(unique)))
+    print("Location Candidates: " + str(len(list(unique))))
     return list(unique)

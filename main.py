@@ -7,12 +7,12 @@ import maps
 city = "New York City"
 time_limit = 3600
 
-places = p.getPlaces(city)
+places = p.getPlacesQuick(city)
 p.quickPrintPlaces(places)
 print(len(places))
 
 matrix_approx = d.adjMatrixApprox(places)
-d.printMatrix(matrix_approx)
+#d.printMatrix(matrix_approx)
 
 order = tsp.find_route(matrix_approx, places, time_limit, tsp.metric_func)
 order, distances, durations = maps.solve(order)

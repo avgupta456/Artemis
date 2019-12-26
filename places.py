@@ -38,7 +38,7 @@ class Place:
         print()
 
     def quickPrint(self):
-        print(str(self.name) + " - " + str(self.rating) + " (" + str(self.reviews) + ")")
+        print(str(self.name) + " - " + str(self.rating)[:4] + " (" + str(self.reviews) + ")")
 
     def isBad(self):
         if(d.getDistance(self.city_coords[0], self.city_coords[1], self.lat, self.lon)>72000): return True
@@ -123,7 +123,9 @@ def __cleanPlaces__(places, city, start):
                 new_places.append(place)
                 locs.append([place.lat, place.lon])
 
-    print(str(len(new_places)) + " acceptable places found")
+    print("Acceptable Locations: " + str(len(new_places)))
+    print()
+
     places = new_places[:min(20,len(new_places))]
     sortPlaces_rating(places)
     return places
