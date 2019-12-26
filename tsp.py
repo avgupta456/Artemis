@@ -27,7 +27,7 @@ def find_route(matrix, locations, time_limit, f):
     best_order = []
 
     n = len(locations)
-    for i in range(1, 2**(n-1)):
+    for i in range(1, 2**n):
         if(i%10000==0): print(i)
 
         bin = binary(i, n)
@@ -74,7 +74,12 @@ def optimize2(matrix):
     time += matrix[order[0]][order[-1]]
     return time, order
 
-def metric_func(posArr, start=True):
+def metric_func(posArr):
     n, sum = len(posArr), 0
     for i in range(0, n): sum += posArr[i].rating
     return sum/n**(0.5)
+
+def metric_func_2(posArr):
+    n, sum = len(posArr), 0
+    for i in range(0, n): sum += posArr[i].reviews
+    return sum

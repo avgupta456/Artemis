@@ -123,9 +123,6 @@ def __cleanPlaces__(places, city, start):
                 new_places.append(place)
                 locs.append([place.lat, place.lon])
 
-            else:
-                print("Park or Restaurant")
-
     print(str(len(new_places)) + " acceptable places found")
     places = new_places[:min(20,len(new_places))]
     sortPlaces_rating(places)

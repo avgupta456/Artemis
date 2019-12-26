@@ -5,9 +5,9 @@ import tsp
 import maps
 
 city = "New York City"
-time_limit = 7200
+time_limit = 3600
 
-places = p.getPlacesQuick(city)
+places = p.getPlaces(city)
 p.quickPrintPlaces(places)
 print(len(places))
 
@@ -15,9 +15,10 @@ matrix_approx = d.adjMatrixApprox(places)
 d.printMatrix(matrix_approx)
 
 order = tsp.find_route(matrix_approx, places, time_limit, tsp.metric_func)
-for place in order: place.print()
+order, distances, durations = maps.solve(order)
 
-matrix_real = d.adjMatrixReal(order)
-d.printMatrix(matrix_real)
+for i in range(len(order)-1):
+    order[i].print()
+    print("Walk " + str(distances[i]) + " feet for " + str(durations[i]) + " seconds to the next stop\n")
 
-#maps.solve(order)
+order[-1].print()
