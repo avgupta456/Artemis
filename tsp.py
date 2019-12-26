@@ -59,7 +59,13 @@ def optimize(matrix):
     return time, order
 
 def optimize2(matrix):
-    n, time, order, dist = len(matrix[0]), 0, [0], 0
+    max_dist, loc = 0, -1
+    for i in range(0, n-1):
+        for j in range(i+1, n):
+            if(matrix[i][j]>max_dist):
+                max_dist, loc = matrix[i][j], i
+
+    n, time, order, dist = len(matrix[loc]), 0, [loc], 0
     for i in range(0, n-1):
         min_dist, loc = 1e10, -1
         for j in range(n):
@@ -73,9 +79,13 @@ def optimize2(matrix):
     time += matrix[order[0]][order[-1]]
     return time, order
 
+#rating parameters
+[a, b] = [2e-3, 0.5]
+
 def metric_func(posArr):
     n, sum = len(posArr), 0
-    for i in range(0, n): sum += posArr[i].rating
+    for i in range(0, n):
+        sum += posArr[i].rating + a*(posArr[i].reviews)**b
     return sum/n**(0.5)
 
 def metric_func_2(posArr):
