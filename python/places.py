@@ -1,4 +1,4 @@
-import google
+import tripadvisor as google
 
 import distance as d
 import maps

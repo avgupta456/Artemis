@@ -4,7 +4,7 @@ import distance as d
 import tsp
 import maps
 
-city = "New York City"
+city = "Charlotte"
 time_limit = 3600
 
 places = p.getPlaces(city)
